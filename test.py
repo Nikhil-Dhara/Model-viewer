@@ -9,6 +9,7 @@ from Logistic_regression import LogisticRegression
 
 # from regression import LogisticRegression
 
+
 def accuracy(y_true, y_pred):
     accuracy = np.sum(y_true == y_pred) / len(y_true)
     return accuracy
@@ -26,4 +27,3 @@ regressor = LogisticRegression(learning_rate=0.0001, n_iterations=1000)
 regressor.fit_model(X_train, y_train)
 predictions = regressor.make_prediction(X_test)
 
-print("LR classification accuracy:", accuracy(y_test, predictions))
