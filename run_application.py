@@ -34,8 +34,9 @@ class Predictor():
 
     def get_performance(self, predictions):
         print("LR classification accuracy:", self.accuracy(self.y_test, predictions))
+        return self.accuracy(self.y_test, predictions)
 
-    def confusion_matrix(self,predictions):
+    def confusion_matrix(self, predictions):
         TP = 0
         FP = 0
         TN = 0
@@ -51,8 +52,8 @@ class Predictor():
             if predictions[i] == 0 and self.y_test[i] != predictions[i]:
                 FN += 1
         TPR = TP / (TP + FN)
-        FPR = FP/(FP+TN)
-        tpr=[]
+        FPR = FP / (FP + TN)
+        tpr = []
         tpr.append(0.0)
         tpr.append(TPR)
         tpr.append(1.0)
@@ -61,65 +62,63 @@ class Predictor():
         fpr.append(FPR)
         fpr.append(1.0)
 
-        print(tpr,'mytpr')
-        print(fpr,'myfpr')
-        plt.show()
+        print(tpr, 'mytpr')
+        print(fpr, 'myfpr')
+        # plt.show()
         fpr, tpr, thresholds = metrics.roc_curve(self.y_test, predictions, pos_label=0)
-        print(fpr,'curve-fpr')
-        print(tpr,'curve-tpr')
-        #Print ROC curve
+        print(fpr, 'curve-fpr')
+        print(tpr, 'curve-tpr')
+        # Print ROC curve
         # plt.plot(fpr, tpr)
         # plt.show()
 
         # This is the AUC
+        auc = roc_auc_score(self.y_test, predictions)
+        print(auc)
 
-
-    def roc(self,predicted_probabilities,predictions):
-        w=2
-        h=2
+    def roc(self, predicted_probabilities, predictions):
+        w = 2
+        h = 2
 
         fpr = []
         # true positive rate
         tpr = []
         # Iterate thresholds from 0.0, 0.01, ... 1.0
-        thresholds = np.arange(0.0, 1.01, .1)
+        thresholds = np.arange(0.0, 1.01, .01)
         P = sum(self.y_test)
         N = len(self.y_test) - P
+        res_arr = []
         for thresh in thresholds:
             matrix = [[0 for x in range(w)] for y in range(h)]
             FP = 0
             TP = 0
-            TN=0
-            FN=0
+            TN = 0
+            FN = 0
             for i in range(len(predicted_probabilities)):
                 if predicted_probabilities[i] > thresh:
                     if self.y_test[i] == 1:
                         TP = TP + 1
                     if self.y_test[i] == 0:
                         FP = FP + 1
-                elif predicted_probabilities[i]<thresh:
-                    if self.y_test[i]== 0:
+                elif predicted_probabilities[i] < thresh:
+                    if self.y_test[i] == 0:
                         TN += 1
                     if self.y_test[i] == 1:
                         FN += 1
             fpr.append(FP / float(N))
             tpr.append(TP / float(P))
-            matrix[0][0]=TP
-            matrix[0][1]=FP
-            matrix[1][0]=FN
-            matrix[1][1]=TN
-
-
-        plt.plot(fpr, tpr)
-        auc = roc_auc_score(self.y_test, predictions)
-        print(auc,'sfasdf')
-        plt.show()
-        return
+            matrix[0][0] = TP
+            matrix[0][1] = FP
+            matrix[1][0] = FN
+            matrix[1][1] = TN
+            res_arr.append(
+                {'x': FP / float(N), 'y': TP / float(P), 'tp': TP, 'fp': FP, 'fn': FN, 'tn': TN, 'thre': thresh})
+        return res_arr, roc_auc_score(self.y_test, predictions)
 
 
 if __name__ == '__main__':
-    b = run('titanic.csv', 'Survived', ['Pclass', 'Age', 'Siblings/Spouses Aboard', 'Parents/Children Aboard', 'Fare'])
-    predictions,predicted_probabilities = b.run_model(learning_rate=0.0001, n_iterations=1000)
+    b = Predictor('titanic.csv', 'Survived', ['Pclass', 'Age', 'Siblings/Spouses Aboard', 'Parents/Children Aboard', 'Fare'])
+    predictions, predicted_probabilities = b.run_model(learning_rate=0.0001, n_iterations=1000)
     b.get_performance(predictions)
-    #b.confusion_matrix(predictions)
-    b.roc(predicted_probabilities,predictions)
+    # b.confusion_matrix(predictions)
+    b.roc(predicted_probabilities, predictions)

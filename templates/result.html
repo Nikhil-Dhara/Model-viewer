@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar navbar-dark bg-primary">
         <span class="navbar-brand mb-0 h1">
-            <h1>Model loader</h1>
+            <h1>Model Performance</h1>
         </span>
     </nav>
 
@@ -72,7 +72,7 @@
             }],
             tooltip: {
                 formatter: function () {
-                    return 'Threshold: ' + this.point.thre + '<br/>TP: ' + this.point.tp + ' | FP:  ' + this.point.fp + '<br/> FN: ' + this.point.fn + ' | TN: ' + this.point.tn;
+                    return 'Threshold: ' + this.point.thre + '<br/>Confusion Matrix<br/><br/>TP: ' + this.point.tp + ' | FP:  ' + this.point.fp + '<br/> FN: ' + this.point.fn + ' | TN: ' + this.point.tn;
                 }
             }
         });
