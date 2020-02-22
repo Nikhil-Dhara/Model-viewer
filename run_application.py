@@ -2,12 +2,12 @@ import pandas as pd
 from Logistic_regression import LogisticRegression
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, roc_auc_score
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-class run():
+class Predictor():
     def __init__(self, file_name, target_column, source_column):
         self.file_name = file_name
         self.data_columns = source_column
@@ -72,10 +72,9 @@ class run():
         # plt.show()
 
         # This is the AUC
-        auc = np.trapz(tpr,fpr)
-        print(auc)
 
-    def roc(self,predicted_probabilities):
+
+    def roc(self,predicted_probabilities,predictions):
         w=2
         h=2
 
@@ -109,14 +108,18 @@ class run():
             matrix[0][1]=FP
             matrix[1][0]=FN
             matrix[1][1]=TN
-            print(matrix)
+
 
         plt.plot(fpr, tpr)
+        auc = roc_auc_score(self.y_test, predictions)
+        print(auc,'sfasdf')
         plt.show()
+        return
+
 
 if __name__ == '__main__':
     b = run('titanic.csv', 'Survived', ['Pclass', 'Age', 'Siblings/Spouses Aboard', 'Parents/Children Aboard', 'Fare'])
     predictions,predicted_probabilities = b.run_model(learning_rate=0.0001, n_iterations=1000)
     b.get_performance(predictions)
     #b.confusion_matrix(predictions)
-    b.roc(predicted_probabilities)
+    b.roc(predicted_probabilities,predictions)
