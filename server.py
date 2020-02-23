@@ -8,19 +8,6 @@ import tornado.httputil
 
 define("debug", default=True, help="run in debug mode")
 
-
-class ExampleResource():
-    def __init__(self):
-        super().__init__()
-        self.cond = tornado.locks.Condition()
-        self.counter = 0
-
-    def hello(self, v):
-        self.counter += v
-        print(self.counter)
-        return self.counter
-
-
 class MainHandler(tornado.web.RequestHandler):
 
     def get(self):
