@@ -30,6 +30,11 @@ class LogisticRegression():
             self.bias = self.bias - self.bias * db
 
     def make_prediction(self, X):
+        '''
+
+        :param X: Test data split of data
+        :return: Predictions and predict
+        '''
         linear_model = np.dot(X, self.weigths) + self.bias
         predictions = self.sigmoid(linear_model)
 
@@ -37,4 +42,9 @@ class LogisticRegression():
         return predicted_class,predictions
 
     def sigmoid(self, c):
+        '''
+
+        :param c: feature weight values
+        :return: sigmoid values.
+        '''
         return 1 / (1 + np.exp(-c))
