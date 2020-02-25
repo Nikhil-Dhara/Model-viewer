@@ -8,20 +8,20 @@ Run : python server.py in cmd<br/>
 Open localhost:8888 to view the application<br/>
 
 ### Prerequisites
-cycler==0.10.0
-joblib==0.14.1
-kiwisolver==1.1.0
-matplotlib==3.1.3
-numpy==1.18.1
-pandas==1.0.1
-pyparsing==2.4.6
-python-dateutil==2.8.1
-pytz==2019.3
-scikit-learn==0.22.1
-scipy==1.4.1
-six==1.14.0
-sklearn==0.0
-tornado==6.0.3
+cycler==0.10.0<br/>
+joblib==0.14.1<br/>
+kiwisolver==1.1.0<br/>
+matplotlib==3.1.3<br/>
+numpy==1.18.1<br/>
+pandas==1.0.1<br/>
+pyparsing==2.4.6<br/>
+python-dateutil==2.8.1<br/>
+pytz==2019.3<br/>
+scikit-learn==0.22.1<br/>
+scipy==1.4.1<br/>
+six==1.14.0<br/>
+sklearn==0.0<br/>
+tornado==6.0.3<br/>
 
 
 ### Installing
@@ -29,9 +29,3 @@ tornado==6.0.3
 pip install -r requirements.txt
 
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-
-## Acknowledgments
