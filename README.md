@@ -1,4 +1,4 @@
-# Machine Learning Performance Viewer
+# Machine Learning Model Performance Viewer
 
 ML Viewer allows you to visualize the performance of the model by giving you visual representation of ROC curve along with associated Confusion Matrix and threshold values.
 
