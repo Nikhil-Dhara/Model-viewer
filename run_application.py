@@ -77,45 +77,7 @@ class Predictor():
         print("LR classification accuracy:", self.accuracy(self.y_test, predictions))
         return self.accuracy(self.y_test, predictions)
 
-    # def confusion_matrix(self, predictions):
-    #     TP = 0
-    #     FP = 0
-    #     TN = 0
-    #     FN = 0
-    #
-    #     for i in range(len(predictions)):
-    #         if self.y_test[i] == predictions[i] == 1:
-    #             TP += 1
-    #         if predictions[i] == 1 and self.y_test[i] != predictions[i]:
-    #             FP += 1
-    #         if self.y_test[i] == predictions[i] == 0:
-    #             TN += 1
-    #         if predictions[i] == 0 and self.y_test[i] != predictions[i]:
-    #             FN += 1
-    #     TPR = TP / (TP + FN)
-    #     FPR = FP / (FP + TN)
-    #     tpr = []
-    #     tpr.append(0.0)
-    #     tpr.append(TPR)
-    #     tpr.append(1.0)
-    #     fpr = []
-    #     fpr.append(0.0)
-    #     fpr.append(FPR)
-    #     fpr.append(1.0)
-    #
-    #     print(tpr, 'mytpr')
-    #     print(fpr, 'myfpr')
-    #     # plt.show()
-    #     fpr, tpr, thresholds = metrics.roc_curve(self.y_test, predictions, pos_label=0)
-    #     print(fpr, 'curve-fpr')
-    #     print(tpr, 'curve-tpr')
-    #     # Print ROC curve
-    #     # plt.plot(fpr, tpr)
-    #     # plt.show()
-    #
-    #     # This is the AUC
-    #     auc = roc_auc_score(self.y_test, predictions)
-    #     print(auc)
+
 
     def roc(self, predicted_probabilities, predictions):
         '''
@@ -163,9 +125,3 @@ class Predictor():
         return res_arr, roc_auc_score(self.y_test, predictions)
 
 
-# if __name__ == '__main__':
-#     b = Predictor('titanic.csv', 'Survived', ['Pclass', 'Age', 'Siblings/Spouses Aboard', 'Parents/Children Aboard', 'Fare'])
-#     predictions, predicted_probabilities = b.run_model(learning_rate=0.0001, n_iterations=1000)
-#     b.get_performance(predictions)
-#     # b.confusion_matrix(predictions)
-#     b.roc(predicted_probabilities, predictions)
